@@ -4,7 +4,7 @@
 #
 Name     : anyjson
 Version  : 0.3.3
-Release  : 17
+Release  : 18
 URL      : https://pypi.python.org/packages/source/a/anyjson/anyjson-0.3.3.tar.gz
 Source0  : https://pypi.python.org/packages/source/a/anyjson/anyjson-0.3.3.tar.gz
 Summary  : Wraps the best available JSON implementation available in a common interface
