@@ -4,56 +4,93 @@
 #
 Name     : anyjson
 Version  : 0.3.3
-Release  : 25
-URL      : https://pypi.python.org/packages/source/a/anyjson/anyjson-0.3.3.tar.gz
-Source0  : https://pypi.python.org/packages/source/a/anyjson/anyjson-0.3.3.tar.gz
+Release  : 26
+URL      : https://files.pythonhosted.org/packages/c3/4d/d4089e1a3dd25b46bebdb55a992b0797cff657b4477bc32ce28038fdecbc/anyjson-0.3.3.tar.gz
+Source0  : https://files.pythonhosted.org/packages/c3/4d/d4089e1a3dd25b46bebdb55a992b0797cff657b4477bc32ce28038fdecbc/anyjson-0.3.3.tar.gz
 Summary  : Wraps the best available JSON implementation available in a common interface
 Group    : Development/Tools
 License  : BSD-3-Clause
+Requires: anyjson-python3
+Requires: anyjson-license
 Requires: anyjson-python
+BuildRequires : buildreq-distutils3
 BuildRequires : nose-python
 BuildRequires : pbr
 BuildRequires : pip
-BuildRequires : python-dev
 BuildRequires : python3-dev
 BuildRequires : setuptools
 
 %description
-##############################
 anyjson - JSON library wrapper
-##############################
+        ##############################
+        
+        Overview
+        --------
+        
+        Anyjson loads whichever is the fastest JSON module installed and provides
+        a uniform API regardless of which JSON implementation is used.
+
+%package license
+Summary: license components for the anyjson package.
+Group: Default
+
+%description license
+license components for the anyjson package.
+
 
 %package python
 Summary: python components for the anyjson package.
 Group: Default
+Requires: anyjson-python3
 
 %description python
 python components for the anyjson package.
+
+
+%package python3
+Summary: python3 components for the anyjson package.
+Group: Default
+Requires: python3-core
+
+%description python3
+python3 components for the anyjson package.
 
 
 %prep
 %setup -q -n anyjson-0.3.3
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1484529298
-python2 setup.py build -b py2
+export SOURCE_DATE_EPOCH=1532376418
 python3 setup.py build -b py3
 
 %check
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python2 setup.py test
+PYTHONPATH=%{buildroot}/usr/lib/python3.7/site-packages python3 setup.py test || :
 %install
-export SOURCE_DATE_EPOCH=1484529298
 rm -rf %{buildroot}
-python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
-python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+mkdir -p %{buildroot}/usr/share/doc/anyjson
+cp LICENSE %{buildroot}/usr/share/doc/anyjson/LICENSE
+python3 -tt setup.py build -b py3 install --root=%{buildroot}
+echo ----[ mark ]----
+cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
+echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
 
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/anyjson/LICENSE
+
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python*/*
+
+%files python3
+%defattr(-,root,root,-)
+/usr/lib/python3*/*
