@@ -4,7 +4,7 @@
 #
 Name     : anyjson
 Version  : 0.3.3
-Release  : 33
+Release  : 34
 URL      : https://files.pythonhosted.org/packages/c3/4d/d4089e1a3dd25b46bebdb55a992b0797cff657b4477bc32ce28038fdecbc/anyjson-0.3.3.tar.gz
 Source0  : https://files.pythonhosted.org/packages/c3/4d/d4089e1a3dd25b46bebdb55a992b0797cff657b4477bc32ce28038fdecbc/anyjson-0.3.3.tar.gz
 Summary  : Wraps the best available JSON implementation available in a common interface
@@ -17,14 +17,9 @@ BuildRequires : buildreq-distutils3
 BuildRequires : nose-python
 
 %description
+##############################
 anyjson - JSON library wrapper
-        ##############################
-        
-        Overview
-        --------
-        
-        Anyjson loads whichever is the fastest JSON module installed and provides
-        a uniform API regardless of which JSON implementation is used.
+##############################
 
 %package license
 Summary: license components for the anyjson package.
@@ -47,6 +42,7 @@ python components for the anyjson package.
 Summary: python3 components for the anyjson package.
 Group: Default
 Requires: python3-core
+Provides: pypi(anyjson)
 
 %description python3
 python3 components for the anyjson package.
@@ -61,7 +57,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1576007017
+export SOURCE_DATE_EPOCH=1582845859
+# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
